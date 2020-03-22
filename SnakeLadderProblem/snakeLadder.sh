@@ -11,23 +11,31 @@ Snake=2
 while (($position!=100))
 do
 	#GENERATE THE RANDOM NUMBER FOR NEW POSITION OR SAME POSITION 
-	playerRollsDiec=$((RANDOM%6+1))
+	playerRollsDie=$((RANDOM%6+1))
 	#GENERATE THE RANDOM VALUE AND CHECK THE OPTION TO AUTOMATIC
 	checkOption=$((RANDOM%3))
 	case  $checkOption in
    	$NoPlay)
-					position=$position
-					echo "Stay in a same poisition:"$position;;
+				position=$position
+				echo "Stay in a same poisition:"$position;;
    	$Ladder)
-      		   position=$(($position+$playerRollsDiec))
-					echo "player moves ahead by position:"$position;;
-   	$Snake)
-         		position=$(($position-$playerRollsDiec))
-					echo "player moves behind by position:"$position
-					if(($position<=0))
-					then
-					position=0
+				#EXACT WINNING POSITION
+				if (($(($position+$playerRollsDie))>100))
+				then
+					position=$position
+					echo "player staying in the same position"$position
+				else
+					position=$(($position+$playerRollsDie))
+					echo "player stay in a exact position:"$position
 					fi;;
+
+   	$Snake)
+				position=$(($position-$playerRollsDie))
+				echo "player moves behind by position:"$position
+				if(($position<=0))
+				then
+				position=0
+				fi;;
 	esac
 done
 
