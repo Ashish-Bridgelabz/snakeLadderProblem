@@ -8,8 +8,11 @@ position=0
 NoPlay=0
 Ladder=1
 Snake=2
+declare -A diecPosition
+#WINNING CONDITION
 while (($position!=100))
 do
+	diecount=$((diecount+1))
 	#GENERATE THE RANDOM NUMBER FOR NEW POSITION OR SAME POSITION 
 	playerRollsDie=$((RANDOM%6+1))
 	#GENERATE THE RANDOM VALUE AND CHECK THE OPTION TO AUTOMATIC
@@ -26,10 +29,9 @@ do
 					echo "player staying in the same position"$position
 				else
 					position=$(($position+$playerRollsDie))
-					echo "player stay in a exact position:"$position
+					echo "player stay in a new position:"$position
 					fi;;
-
-   	$Snake)
+		$Snake)
 				position=$(($position-$playerRollsDie))
 				echo "player moves behind by position:"$position
 				if(($position<=0))
@@ -37,6 +39,10 @@ do
 				position=0
 				fi;;
 	esac
+	#COUNT THE DIECE AND POSITION
+	diecPosition[$diecount]=$position
+	echo "Diecount $diecount: Position $position"
+	#echo $dicePosition
 done
 
 
